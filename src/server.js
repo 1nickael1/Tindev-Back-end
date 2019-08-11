@@ -32,8 +32,6 @@ app.use(cors())
 app.use(express.json());
 app.use(routes);
 
-app.get('/', (req, res) => {
-    return res.json({ ok: true})
-})
+
 
 server.listen(3333);
