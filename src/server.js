@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const routes = require('./routes');
+require('dotenv').config();
 
 const app = express();
 const server = require('http').Server(app)
@@ -16,7 +17,7 @@ io.on('connection', socket => {
     
 })
 
-mongoose.connect('mongodb+srv://nickael:nickael@omnistack-qsrfs.mongodb.net/omnistack8?retryWrites=true&w=majority', {
+mongoose.connect(`mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@omnistack-qsrfs.mongodb.net/omnistack8?retryWrites=true&w=majority`, {
     useNewUrlParser: true
 })
 
@@ -30,5 +31,9 @@ app.use((req, res, next) => {
 app.use(cors())
 app.use(express.json());
 app.use(routes);
+
+app.get('/', (req, res) => {
+    return res.json({ ok: true})
+})
 
 server.listen(3333);
